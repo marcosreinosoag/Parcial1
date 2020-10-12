@@ -3,15 +3,16 @@
  *
  *  Created on: 10 oct. 2020
  *      Author: marcos
-
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include<string.h>
 #include "utn.h"
 #include "aviso.h"
-#include"cliente.h"
 
 static int aviso_generarNuevoId (void);
+
+
 
 int aviso_init(Aviso * pArrays, int limite)
 {
@@ -27,26 +28,29 @@ int aviso_init(Aviso * pArrays, int limite)
 	return retorno;
 }
 
-int aviso_alta(Aviso *arrayAviso,int limite)
+int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit)
 {
 	int retorno=-1;
 	int indice;
-	Cliente bufferAviso;
+	Aviso bufferAviso;
 	if(arrayAviso!=NULL && limite>0 )
 	{
-		if(cliente_buscarLibreRef(arrayAviso,limite,&indice)==0)
+		if(aviso_buscarLibreRef(arrayAviso,limite,&indice)==0)
 		{
-			if(utn_getNombre("\nINGRESE NOMBRE: ", "\ERROR!!!!! REINGRESE EL NOMBRE: ",bufferAviso.nombre,3,LONG_NOMBRE)==0 &&
-				utn_getNombre("\nINGRESE APELLIDO: ","\n ERROR!!!!!! REINGRESE EL APELLIDO: ",bufferAviso.apellido,3, LONG_NOMBRE)==0 &&
-				utn_getCuit("\nINGRESE CUIT: ", "\ERROR!!!!! REINGRESE CUIT: ", bufferAviso.cuit,3,LONG_NOMBRE)==0)
+			cliente_imprimir(pArrayClientes,limit);
+			if(utn_getEntero("INGRESE ID ","\n ID NO ENCONTRADO ",&bufferAviso.idcliente,3,99999999,0)==0 &&
+				cliente_buscarIndicePorId(pArrayClientes,limit,bufferAviso.idcliente) == 0 &&
+				utn_getEntero("INGRESE NUMERO DE RUBRO ","ERROR!!!! NUMERO MAL INGRESADO ",&bufferAviso.numeroRubro,3,99999,0) &&
+				utn_getNombre("INGRESE EL AVISO QUE DESEA PUBLICAR: ","ERROR!!!!! EL MENSAJE PODRIA ESTAR EXEDIENDO LA CANTIDAD DE CARACTERES", bufferAviso.textoAviso,3,10)==0)
 			{
-				//bufferAlumno.isEmpty=FALSE;
+				bufferAviso.isEmpty=FALSE;
 				arrayAviso[indice]=bufferAviso;
 				arrayAviso[indice].isEmpty=FALSE;
-				arrayAviso[indice].idCliente=cliente_generarNuevoId();
+				arrayAviso[indice].idAviso=aviso_generarNuevoId();
+				arrayAviso[indice].estadoPublicacion=TRUE;
 				printf("\n/////////////////////////////////////////////////////////ALTA REALIZADA CORRECTAMENTE////////////////////////////////////////////////////////////////////\n"
-						"\///////////////////////////////////////////nNombre: %s -Apellido: %s - Cuit %s -ID Cliente: %d ////////////////////////////////////////////////////////\n"
-						,arrayAviso[indice].nombre ,arrayAviso[indice].apellido , arrayAviso[indice].cuit, arrayAviso[indice].idCliente);
+						"\///////////////////////////////////////////nID CLIENTE: %d - NUMERO DE RUBRO: %d - TEXTO DEL AVISO %s -ID AVISO: %d ////////////////////////////////////////////////////////\n"
+						,arrayAviso[indice].idcliente ,arrayAviso[indice].numeroRubro , arrayAviso[indice].textoAviso, arrayAviso[indice].idAviso);
 				retorno = 0;
 			}
 			else
@@ -59,77 +63,6 @@ int aviso_alta(Aviso *arrayAviso,int limite)
 			printf("\n No quedan espacios libres");
 		}
 	}
-	return retorno;
-}
-
-int aviso_modificar (Aviso * pArrays, int limite)
-{
-	int retorno = -1;
-	int idBuscar;
-	int indiceAModificar = -1;
-	Aviso bufferAviso;
-
-	if (pArrays != NULL && limite>0)
-	{
-		aviso_imprimir(pArrays, limite);
-
-		if(utn_getEntero("ID:","ERROR!",&idBuscar,3,9999,0)==0)
-		{
-			if(aviso_buscarIndicePorIdRef(pArrays,limite,idBuscar,&indiceAModificar) == 0)
-			{
-				bufferAviso = pArrays[indiceAModificar];
-
-				if (utn_getNombre("\nINGRESE NUEVO NOMBRE","ERROR!!!REINGRESE NOMBRE",bufferAviso.nombre,3,LONG_NOMBRE) == 0 &&
-					utn_getNombre("\nINGRESE NUEVO APELLIDO","ERROR!!!REINGRESE APELLIDO",bufferAviso.apellido,3,LONG_NOMBRE) == 0 &&
-					utn_getCuit("INGRESE NUEVO CUIT","ERROR!!! REINGRESE CUIT", bufferAviso.cuit, 3, LONG_NOMBRE) == 0)
-					{
-						pArrays[indiceAModificar] = bufferAviso; // COPIAMOS AL ARRAY
-						retorno = 0;
-					}
-				}
-			}
-		}
-	return retorno;
-}
-
-int aviso_imprimir (Aviso * pArrays , int limite)
-{
-	int retorno = -1;
-	if (pArrays != NULL && limite >0){
-		for (int i=0 ; i<limite ; i++)
-		{
-			if(pArrays[i].isEmpty == FALSE)
-			{
-				printf("\nNombre: %s - Apellido: %s - Cuit %s - ID %d",pArrays[i].,pArrays[i].apellido, pArrays[i].cuit , pArrays[i].idAviso);
-			}
-		}
-		retorno = 0;
-	}
-return retorno;
-}
-*/
-/*
-int aviso_buscarIndicePorIdRef (Aviso * pArrays, int limite,int idBuscar, int * pIndice)
-{
-	int retorno = -1;
-	int i ;
-		if (pArrays != NULL && limite >0 && idBuscar >= 0)
-		{
-				for ( i = 0; i<limite; i++)
-				{
-					if(pArrays[i].isEmpty == FALSE &&
-					   pArrays[i].idAviso == idBuscar)
-					{
-					*pIndice= i;
-					retorno = 0;
-					break;
-					}
-				}
-		}
-		else
-		{
-			printf("errrror!!!!!!!!!!!!");
-		}
 	return retorno;
 }
 
@@ -152,11 +85,11 @@ int aviso_buscarLibreRef(Aviso pArrayAviso[],int limit, int *pindex)
 	}
 	return retorno;
 }
-
 static int aviso_generarNuevoId (void)
 {
-	static int id = 0;
-	id = id+1;
-	return id;
+	static int idAviso = 0;
+	idAviso = idAviso+1;
+	return idAviso;
 }
-*/
+
+

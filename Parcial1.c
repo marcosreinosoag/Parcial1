@@ -12,14 +12,17 @@
 #include <stdlib.h>
 #include "utn.h"
 #include "cliente.h"
+#include "aviso.h"
 #define QTY_CLIENTES 100
-#define QTY_PUBLICACIONES 1000
+#define QTY_AVISOS 1000
 
 int main(void) {
 	setbuf(stdout,NULL);
 	int opcionMenu;
 	Cliente arrayCliente[QTY_CLIENTES];
+	Aviso arrayAviso[1000];
 	cliente_init(arrayCliente, QTY_CLIENTES);
+	aviso_init(arrayAviso,QTY_AVISOS);
 
 	do
 	{
@@ -37,7 +40,7 @@ int main(void) {
 			cliente_modificar (arrayCliente,QTY_CLIENTES);
 			break;
 		case 3:
-
+			cliente_baja(arrayCliente,QTY_CLIENTES);
 			break;
 		case 4:
 
