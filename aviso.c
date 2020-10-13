@@ -170,6 +170,33 @@ int aviso_pausarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int
 	}
 	return retorno;
 }
+int aviso_reaunudarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int limit)
+{
+	int retorno = -1;
+	int idAviso;
+	int indiceCliente;
+	int pIndice;
+	char confirmacionReanudar;
+
+	if (pArrays != NULL && limite >0 && arrayAviso!=NULL && limit>0)
+	{
+		avisos_imprimir(arrayAviso ,QTY_AVISOS);
+		if(utn_getEntero("\nINGRESE EL ID DE LA PUBLICACION QUE DESEA REANUDAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idAviso,3,9999,0)==0 &&
+			aviso_buscarIndicePorIdRef(arrayAviso,QTY_AVISOS,idAviso,&indiceCliente)==0)
+		{
+			cliente_buscarIndicePorIdRef (pArrays,QTY_CLIENTES,arrayAviso[indiceCliente].idcliente,&pIndice);
+			printf("\nID CLIENTE: %d - NOMBRE: %s - APELLIDO %s - CUIT %s",pArrays[pIndice].idCliente,pArrays[pIndice].nombre, pArrays[pIndice].apellido , pArrays[pIndice].cuit);
+			printf("ATENCION!!! LA PUBLICACION SERA REACTIVADA ¿DESEA CONTINUAR?");
+			scanf("%c", &confirmacionReanudar);
+			if(confirmacionReanudar=='s' || confirmacionReanudar=='n')
+			{
+				arrayAviso[indiceCliente].estadoPublicacion=TRUE;
+			}
+
+		}
+	}
+	return retorno;
+}
 
 int menu_Consultas(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit)
 {

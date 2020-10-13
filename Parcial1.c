@@ -45,7 +45,7 @@ int main(void) {
 			aviso_pausarpublicacion (arrayCliente,QTY_CLIENTES,arrayAviso,QTY_AVISOS);
 			break;
 		case 6:
-
+			aviso_reaunudarpublicacion (arrayCliente,QTY_CLIENTES,arrayAviso,QTY_AVISOS);
 			break;
 		case 7:
 			cliente_imprimirAvisos(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
