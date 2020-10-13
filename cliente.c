@@ -14,6 +14,16 @@
 
 static int cliente_generarNuevoId (void);
 
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 int cliente_init(Cliente * pArrays, int limite)
 {
 	int retorno = -1;
@@ -28,6 +38,16 @@ int cliente_init(Cliente * pArrays, int limite)
 	return retorno;
 }
 
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 int cliente_alta(Cliente *arrayClientes,int limite)
 {
 	int retorno=-1;
@@ -63,6 +83,16 @@ int cliente_alta(Cliente *arrayClientes,int limite)
 	return retorno;
 }
 
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 int cliente_modificar (Cliente * pArrays, int limite)
 {
 	int retorno = -1;
@@ -92,6 +122,16 @@ int cliente_modificar (Cliente * pArrays, int limite)
 		}
 	return retorno;
 }
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 
 int cliente_imprimir (Cliente * pArrays , int limite)
 {
@@ -108,7 +148,16 @@ int cliente_imprimir (Cliente * pArrays , int limite)
 	}
 return retorno;
 }
-
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 
 int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar, int * pIndice)
 {
@@ -133,6 +182,16 @@ int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar, in
 		}
 	return retorno;
 }
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 int cliente_buscarIndicePorId (Cliente * pArrays, int limite,int idBuscar)
 {
 	int retorno = -1;
@@ -156,7 +215,16 @@ int cliente_buscarIndicePorId (Cliente * pArrays, int limite,int idBuscar)
 	return retorno;
 }
 
-
+/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
+ *
+ * \param Valor correspondiente a la variable *respuesta
+ * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
+ * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \return Devuelve si hubo error o no
+ *
+ */
 int cliente_buscarLibreRef(Cliente pArrayCliente[],int limit, int *pindex)
 {
 	int retorno=-1;

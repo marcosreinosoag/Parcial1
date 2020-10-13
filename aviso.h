@@ -31,6 +31,7 @@ int cliente_baja (Cliente * pArrays, int limite,Aviso *arrayAviso,int limit);
 int aviso_imprimirAvisoPorID (Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit,int id);
 int aviso_bajaIdCliente(Aviso * pArrays, int limite,int idCliente);
 int cliente_imprimirAvisos(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit);
+int menu_Consultas(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit);
 int cliente_contadorAvisos(Aviso *arrayAviso,int limit,int idCliente,int *avisosdelcliente);
 int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit);
 int aviso_buscarLibreRef(Aviso pArrayCliente[],int limit, int *pindex);

@@ -51,7 +51,7 @@ int main(void) {
 			cliente_imprimirAvisos(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
 			break;
 		case 8:
-
+			menu_Consultas(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
 			break;
 		}
 	}while(opcionMenu>0 && opcionMenu<9);
