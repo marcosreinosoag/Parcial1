@@ -44,10 +44,10 @@ int cliente_alta(Cliente *arrayClientes,int limite)
 				//bufferAlumno.isEmpty=FALSE;
 				arrayClientes[indice]=bufferClientes;
 				arrayClientes[indice].isEmpty=FALSE;
-				arrayClientes[indice].id=cliente_generarNuevoId();
+				arrayClientes[indice].idCliente=cliente_generarNuevoId();
 				printf("\n/////////////////////////////////////////////////////////ALTA REALIZADA CORRECTAMENTE////////////////////////////////////////////////////////////////////\n"
 						"\///////////////////////////////////////////nNombre: %s -Apellido: %s - Cuit %s -ID Cliente: %d //////////////////////////////////////////////////////////\n"
-						,arrayClientes[indice].nombre ,arrayClientes[indice].apellido , arrayClientes[indice].cuit, arrayClientes[indice].id);
+						,arrayClientes[indice].nombre ,arrayClientes[indice].apellido , arrayClientes[indice].cuit, arrayClientes[indice].idCliente);
 				retorno = 0;
 			}
 			else
@@ -93,27 +93,6 @@ int cliente_modificar (Cliente * pArrays, int limite)
 	return retorno;
 }
 
-int cliente_baja (Cliente * pArrays, int limite)
-{
-	int retorno = -1;
-	int idABorrar;
-	int indiceABorrar;
-
-	if (pArrays != NULL && limite>0)
-	{
-		cliente_imprimir(pArrays, limite);
-		if(utn_getEntero("Ingrese el id quiere borrar","Error",&idABorrar,3,9999,0)==0)
-		{
-
-			if(cliente_buscarIndicePorIdRef(pArrays, limite, idABorrar, &indiceABorrar)== 0)
-			{
-				pArrays[indiceABorrar].isEmpty=TRUE;
-			}
-		}
-	}
-	return retorno;
-}
-
 int cliente_imprimir (Cliente * pArrays , int limite)
 {
 	int retorno = -1;
@@ -122,7 +101,7 @@ int cliente_imprimir (Cliente * pArrays , int limite)
 		{
 			if(pArrays[i].isEmpty == FALSE)
 			{
-				printf("\nNombre: %s - Apellido: %s - Cuit %s - ID %d",pArrays[i].nombre,pArrays[i].apellido, pArrays[i].cuit , pArrays[i].id);
+				printf("\nNombre: %s - Apellido: %s - Cuit %s - ID %d",pArrays[i].nombre,pArrays[i].apellido, pArrays[i].cuit , pArrays[i].idCliente);
 			}
 		}
 		retorno = 0;
@@ -131,7 +110,8 @@ return retorno;
 }
 
 
-int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar, int * pIndice){
+int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar, int * pIndice)
+{
 	int retorno = -1;
 	int i ;
 		if (pArrays != NULL && limite >0 && idBuscar >= 0)
@@ -139,7 +119,7 @@ int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar, in
 				for ( i = 0; i<limite; i++)
 				{
 					if(pArrays[i].isEmpty == FALSE &&
-					   pArrays[i].id == idBuscar)
+					   pArrays[i].idCliente == idBuscar)
 					{
 					*pIndice= i;
 					retorno = 0;
@@ -162,7 +142,7 @@ int cliente_buscarIndicePorId (Cliente * pArrays, int limite,int idBuscar)
 				for ( i = 0; i<limite; i++)
 				{
 					if(pArrays[i].isEmpty == FALSE &&
-					   pArrays[i].id == idBuscar)
+					   pArrays[i].idCliente == idBuscar)
 					{
 					retorno = i;
 					break;

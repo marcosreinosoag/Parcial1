@@ -13,8 +13,7 @@
 #include "utn.h"
 #include "cliente.h"
 #include "aviso.h"
-#define QTY_CLIENTES 100
-#define QTY_AVISOS 1000
+
 
 int main(void) {
 	setbuf(stdout,NULL);
@@ -26,11 +25,8 @@ int main(void) {
 
 	do
 	{
-		if(utn_getEntero("BIENVENIDO!!\n1-Cargar Cliente\n2- Modificar Cliente\n3- Dar de baja un Cliente\n4-Realizar una Publicación"
-		 "\n5-Pausar Publicacion\n6-Reanudar Publicacion\n7-Imprimir Clientes\n8-Realizar Consulta\n","Error!!!! reingrese numero!!!", &opcionMenu,3,8,1)==-1)
-		{
-			break;
-		}
+		utn_getEntero("BIENVENIDO!!\n1-Cargar Cliente\n2- Modificar Cliente\n3- Dar de baja un Cliente\n4-Realizar una Publicación"
+		 "\n5-Pausar Publicacion\n6-Reanudar Publicacion\n7-Imprimir Clientes\n8-Realizar Consulta\n","Error!!!! reingrese numero!!!", &opcionMenu,3,8,1);
 		switch(opcionMenu)
 		{
 		case 1:
@@ -40,10 +36,10 @@ int main(void) {
 			cliente_modificar (arrayCliente,QTY_CLIENTES);
 			break;
 		case 3:
-			cliente_baja(arrayCliente,QTY_CLIENTES);
+			cliente_baja(arrayCliente,QTY_CLIENTES,arrayAviso,QTY_AVISOS);
 			break;
 		case 4:
-
+			aviso_alta(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
 			break;
 		case 5:
 
@@ -52,7 +48,7 @@ int main(void) {
 
 			break;
 		case 7:
-
+			cliente_imprimirAvisos(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
 			break;
 		case 8:
 

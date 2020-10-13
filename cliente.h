@@ -16,13 +16,13 @@ typedef struct{
 	char apellido[LONG_NOMBRE];
 	char cuit[LONG_NOMBRE];
 	int isEmpty;
-	int id;
+	int idCliente;
 }Cliente;
 
 int cliente_init(Cliente * pArrays, int limite);
 int cliente_alta(Cliente *arrayClientes,int limite);
 int cliente_modificar (Cliente * pArrays, int limite);
-int cliente_baja (Cliente * pArrays, int limite);
+
 int cliente_imprimir (Cliente * pArrays , int limite);
 int cliente_buscarIndicePorId (Cliente * pArrays, int limite,int idBuscar);
 int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar,int * pIndice);
