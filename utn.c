@@ -13,16 +13,19 @@
 static int myGets(char *cadena, int longitud);
 
 
-/** \brief Recibe un valor numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+
+/**
+ * \brief Solicita un numero entero al usuario
+ * \param Valor  mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor  mensajeError, se guarda el mesaje de error que va a ser leido por el usuario
+ * \param Valor  pResultado, puntero al espacio de memoria donde se dejara el valor obtenido.
+ * \param Valor  reintentos, cantidad de oportunidades para ingresar el dato.
+ * \param Valor	 maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
+ * \param Valor  minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
  * \return Devuelve si hubo error o no
  *
  */
+
 int utn_getEntero(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int maximo,int minimo)
 {
 	int resultadoScanf;
@@ -50,10 +53,6 @@ int utn_getEntero(char* mensaje, char* mensajeError, int* pResultado,int reinten
 	}
 	return retorno;
 }
-
-
-
-
 
 static int myGets(char *cadena, int longitud)
 {
@@ -88,11 +87,11 @@ int esUnNombreValido(char* cadena,int limite)
 
 /**
  * \brief Solicita un nombre al usuario
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mesaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *pResultado, puntero al espacio de memoria donde se dejara el valor obtenido.
- * \param Valor correspondiente a la variable reintentos, cantidad de oportunidades para ingresar el dato.
- * \param Valor correspondiente a la variable limite, la cual indica la cantidad de letras maxima del nombre
+ * \param Valor  mensaje, se guarda el mensaje que va a ser leido por el usuario
+ * \param Valor  mensajeError, se guarda el mesaje de error que va a ser leido por el usuario
+ * \param Valor  pResultado, puntero al espacio de memoria donde se dejara el valor obtenido.
+ * \param Valor  reintentos, cantidad de oportunidades para ingresar el dato.
+ * \param Valor  limite, indica la cantidad de letras maxima del nombre
  * \return Devuelve si hubo error o no
  *
  */
@@ -124,7 +123,13 @@ char bufferString[LIMITE_BUFFER_STRING];
 	}
 	return retorno;
 }
-
+/**
+ * \brief 	Verifica una cadena recibida como parametro para determinar si es un nombre valido
+ * \param char* cadena, Cadena a analizar
+ * \param int limite, indica la cantidad de letras maxima de la cadena
+ * \return (0) Indicar que no es un nombre valido / (1) Indica que que es un nombre valido
+ *
+ */
 int esUnCuilValido(char* cadena,int limite)
 {
 	int respuesta = 1;

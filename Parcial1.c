@@ -25,8 +25,8 @@ int main(void) {
 
 	do
 	{
-		utn_getEntero("BIENVENIDO!!\n1-Cargar Cliente\n2- Modificar Cliente\n3- Dar de baja un Cliente\n4-Realizar una Publicación"
-		 "\n5-Pausar Publicacion\n6-Reanudar Publicacion\n7-Imprimir Clientes\n8-Realizar Consulta\n","Error!!!! reingrese numero!!!", &opcionMenu,3,8,1);
+		utn_getEntero("\nBIENVENIDO!!!!!!!!!!!!!!!!!!\n1-Cargar Cliente\n2- Modificar Cliente\n3- Dar de baja un Cliente\n4-Realizar una Publicación"
+		 "\n5-Pausar Publicacion\n6-Reanudar Publicacion\n7-Imprimir Clientes\n8-Realizar Consulta\n9-Salir\n","\nError!!!! reingrese numero!!!", &opcionMenu,3,8,1);
 		switch(opcionMenu)
 		{
 		case 1:
@@ -54,5 +54,5 @@ int main(void) {
 			menu_Consultas(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
 			break;
 		}
-	}while(opcionMenu>0 && opcionMenu<9);
+	}while(opcionMenu !=9);
 }

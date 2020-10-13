@@ -144,6 +144,29 @@ int cliente_imprimirAvisos(Aviso * pArrays, int limite, Cliente * pArrayCliente 
 	return retorno;
 }
 
+/*int aviso_buscarIndicePorId (Aviso * pArrays, int limite,int idBuscar)
+{
+	int retorno = -1;
+	int i ;
+		if (pArrays != NULL && limite >0 && idBuscar >= 0)
+		{
+				for ( i = 0; i<limite; i++)
+				{
+					if(pArrays[i].isEmpty == FALSE &&
+					   pArrays[i].idAviso == idBuscar)
+					{
+					retorno = i;
+					break;
+					}
+				}
+		}
+		else
+		{
+			printf("ERROR!!!!!! ID NO ENCONTRADO");
+		}
+	return retorno;
+}
+*/
 int menu_Consultas(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit)
 {
 	int retorno=-1;
@@ -195,6 +218,7 @@ int menu_Consultas(Aviso * pArrays, int limite, Cliente * pArrayCliente , int li
  *
  */
 
+
 int aviso_imprimirAvisoPorID (Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit, int id)
 {
 	int retorno =-1;
@@ -212,6 +236,28 @@ int aviso_imprimirAvisoPorID (Aviso * pArrays, int limite, Cliente * pArrayClien
 
 	return retorno;
 }
+
+int aviso_imprimirAvisoPorIDAviso (Aviso * pArrays, int limite,int id)
+{
+	int retorno =-1;
+		if(pArrays != NULL && limite > 0)
+		{
+			for(int i = 0; i<limite; i++)
+			{
+				if (pArrays[i].idAviso == id)
+				{
+					retorno = 0;
+					printf("\n ID CLIENTE: %d - ID PUBLICACION: %d - N° DE RUBRO %d -AVISO PUBLICADO %s ",pArrays[i].idcliente,pArrays[i].idAviso , pArrays[i].numeroRubro, pArrays[i].textoAviso);
+				}
+			}
+		}
+
+	return retorno;
+}
+
+
+
+
 /** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
  *
  * \param Valor correspondiente a la variable *respuesta
