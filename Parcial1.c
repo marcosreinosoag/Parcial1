@@ -42,7 +42,7 @@ int main(void) {
 			aviso_alta(arrayAviso,QTY_AVISOS,arrayCliente,QTY_CLIENTES);
 			break;
 		case 5:
-
+			aviso_pausarpublicacion (arrayCliente,QTY_CLIENTES,arrayAviso,QTY_AVISOS);
 			break;
 		case 6:
 

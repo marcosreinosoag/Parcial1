@@ -8,6 +8,7 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
+
 #define LONG_NOMBRE 50
 #define TRUE 1
 #define FALSE 0
