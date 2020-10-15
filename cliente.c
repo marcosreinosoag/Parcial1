@@ -95,7 +95,7 @@ int cliente_modificar (Cliente * pArrays, int limiteCliente)
 	{
 		cliente_imprimir(pArrays, limiteCliente);
 
-		if(utn_getEntero("INGRESE ID:","ERROR!",&idBuscar,3,9999,0)==0)
+		if(utn_getEntero("\nINGRESE EL ID QUE DESEA MODIFICAR:","\nERROR!!!!!",&idBuscar,3,9999,0)==0)
 		{
 			if(cliente_buscarIndicePorIdRef(pArrays,limiteCliente,idBuscar,&indiceAModificar) == 0)
 			{

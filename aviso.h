@@ -17,6 +17,9 @@
 #define QTY_CARACTERES 60
 #define QTY_CLIENTES 100
 #define QTY_AVISOS 1000
+#include"cliente.h"
+#include"utn.h"
+
 
 typedef struct{
 	int idAviso;
