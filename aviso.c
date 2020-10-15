@@ -48,6 +48,7 @@ int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,
 	{
 		cliente_imprimir(pArraysCliente, limiteCliente);
 		if(utn_getEntero("\nINGRESE EL ID QUE DESEA BORRAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idABorrar,3,9999,0)==0)
+		{
 			if(cliente_buscarIndicePorIdRef(pArraysCliente, limiteCliente,idABorrar,&indiceABorrarCliente)== 0 &&
 				aviso_imprimirAvisoPorID(arrayAviso,limitAviso,pArraysCliente,limiteCliente,idABorrar)==0)
 				{
@@ -57,7 +58,17 @@ int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,
 					aviso_bajaIdCliente(arrayAviso,limitAviso,indiceABorrarCliente);
 					pArraysCliente[indiceABorrarCliente].isEmpty=TRUE;
 					}
-			}
+				}
+			    else
+			    if(cliente_buscarIndicePorIdRef(pArraysCliente, limiteCliente,idABorrar,&indiceABorrarCliente)== 0 )
+			    {
+			    	utn_getEntero("¿DESEA CONTINUAR LA BAJA DEL CLIENTE? 1(SI) 2(NO)", "ERROR!!!!!!!EL REGISTRO SERA ELIMINADO¿DESEA CONTINUAR? ",&confirmacion,3, 2, 1);
+			    	if(confirmacion==1)
+			    	{
+			    	pArraysCliente[indiceABorrarCliente].isEmpty=TRUE;
+			    	}
+			    }
+		}
 	}
 	return retorno;
 }
