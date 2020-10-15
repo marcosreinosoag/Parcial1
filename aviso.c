@@ -8,16 +8,8 @@
 static int aviso_generarNuevoId (void);
 
 
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
+
+
 int aviso_init(Aviso * pArrays, int limite)
 {
 	int retorno = -1;
@@ -31,50 +23,35 @@ int aviso_init(Aviso * pArrays, int limite)
 	}
 	return retorno;
 }
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
-int cliente_baja (Cliente * pArrays, int limite,Aviso *arrayAviso,int limit)
+
+
+
+int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,int limit)
 {
 	int retorno = -1;
 	int idABorrar;
 	int indiceABorrarCliente;
-	char confirmacionBaja[2];
+	int confirmacion;
 
-	if (pArrays != NULL && limite>0)
+	if (pArraysCliente != NULL && limiteCliente>0)
 	{
-		cliente_imprimir(pArrays, limite);
+		cliente_imprimir(pArraysCliente, limiteCliente);
 		if(utn_getEntero("\nINGRESE EL ID QUE DESEA BORRAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idABorrar,3,9999,0)==0)
-			if(cliente_buscarIndicePorIdRef(pArrays, limite, idABorrar,&indiceABorrarCliente)== 0 &&
-				aviso_imprimirAvisoPorID(arrayAviso,limit,pArrays,limite,idABorrar)==0)
+			if(cliente_buscarIndicePorIdRef(pArraysCliente, limiteCliente, idABorrar,&indiceABorrarCliente)== 0 &&
+				aviso_imprimirAvisoPorID(arrayAviso,limit,pArraysCliente,limiteCliente,idABorrar)==0)
 			{
-				if(utn_getNombre("ATENCION!!!! EL REGITRO SERA ELIMINADO¿DESEA CONTINUAR? ","ERROR!!!!!!!!EL REGITRO SERA ELIMINADO¿DESEA CONTINUAR? ",confirmacionBaja, 3, 2))
+				utn_getEntero("¿DESEA CONTINUAR LA BAJA DEL CLIENTE? 1(SI) 2(NO)", "ERROR!!!!!!!EL REGISTRO SERA ELIMINADO¿DESEA CONTINUAR? ",&confirmacion,3, 2, 1);
+				if(confirmacion)
 				{
 					aviso_bajaIdCliente(arrayAviso,limit,indiceABorrarCliente);
-					pArrays[indiceABorrarCliente].isEmpty=TRUE;
+					pArraysCliente[indiceABorrarCliente].isEmpty=TRUE;
 				}
 			}
-
 	}
 	return retorno;
 }
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
+
+
 int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit)
 {
 	int retorno=-1;
@@ -113,16 +90,9 @@ int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit)
 	}
 	return retorno;
 }
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
+
+
+
 int cliente_imprimirAvisos(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit)
 {
 	int retorno = -1;
@@ -143,13 +113,15 @@ int cliente_imprimirAvisos(Aviso * pArrays, int limite, Cliente * pArrayCliente 
 	}
 	return retorno;
 }
+
+
 int aviso_pausarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int limit)
 {
 	int retorno = -1;
 	int idAviso;
 	int indiceCliente;
 	int pIndice;
-	char confirmacionBaja;
+	char confirmacionPausa[2];
 
 	if (pArrays != NULL && limite >0 && arrayAviso!=NULL && limit>0)
 	{
@@ -159,13 +131,14 @@ int aviso_pausarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int
 		{
 			cliente_buscarIndicePorIdRef (pArrays,QTY_CLIENTES,arrayAviso[indiceCliente].idcliente,&pIndice);
 			printf("\nID CLIENTE: %d - NOMBRE: %s - APELLIDO %s - CUIT %s",pArrays[pIndice].idCliente,pArrays[pIndice].nombre, pArrays[pIndice].apellido , pArrays[pIndice].cuit);
-			printf("ATENCION!!! LA PUBLICACION SERA PAUSADA ¿Desea continuar?");
-			scanf("%c", &confirmacionBaja);
-			if(confirmacionBaja=='s' || confirmacionBaja=='n')
+			if(utn_getNombre("ATENCION!!! LA PUBLICACION SERA PAUSADA ¿Desea continuar?","ERROR!!!!!!!! ",confirmacionPausa, 3, 2))
 			{
 				arrayAviso[indiceCliente].estadoPublicacion=FALSE;
 			}
-
+		}
+		else
+		{
+			printf("ERRORRR!!!");
 		}
 	}
 	return retorno;
@@ -176,7 +149,7 @@ int aviso_reaunudarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,
 	int idAviso;
 	int indiceCliente;
 	int pIndice;
-	char confirmacionReanudar;
+	char confirmacionReanudar [2];
 
 	if (pArrays != NULL && limite >0 && arrayAviso!=NULL && limit>0)
 	{
@@ -185,10 +158,7 @@ int aviso_reaunudarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,
 			aviso_buscarIndicePorIdRef(arrayAviso,QTY_AVISOS,idAviso,&indiceCliente)==0)
 		{
 			cliente_buscarIndicePorIdRef (pArrays,QTY_CLIENTES,arrayAviso[indiceCliente].idcliente,&pIndice);
-			printf("\nID CLIENTE: %d - NOMBRE: %s - APELLIDO %s - CUIT %s",pArrays[pIndice].idCliente,pArrays[pIndice].nombre, pArrays[pIndice].apellido , pArrays[pIndice].cuit);
-			printf("ATENCION!!! LA PUBLICACION SERA REACTIVADA ¿DESEA CONTINUAR?");
-			scanf("%c", &confirmacionReanudar);
-			if(confirmacionReanudar=='s' || confirmacionReanudar=='n')
+			if(utn_getNombre("ATENCION!!! LA PUBLICACION SERA REACTIVADA ¿DESEA CONTINUAR?","ERROR!!!!!!!! ",confirmacionReanudar, 3, 2))
 			{
 				arrayAviso[indiceCliente].estadoPublicacion=TRUE;
 			}
@@ -279,16 +249,6 @@ int aviso_buscarIndicePorIdRef(Aviso * pArrays, int limite,int idBuscar, int * p
 	return retorno;
 }
 
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
 
 
 int aviso_imprimirAvisoPorID (Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit, int id)
@@ -330,16 +290,7 @@ int aviso_imprimirAvisoPorIDAviso (Aviso * pArrays, int limite,int id)
 
 
 
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
+
 
 int aviso_bajaIdCliente(Aviso * pArrays, int limite,int idCliente)
 {
@@ -358,16 +309,9 @@ int aviso_bajaIdCliente(Aviso * pArrays, int limite,int idCliente)
 	return retorno;
 }
 
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
+
+
+
 
 int cliente_contadorAvisos(Aviso *arrayAviso,int limit,int idCliente,int *avisosdelcliente)
 {
@@ -389,16 +333,10 @@ int cliente_contadorAvisos(Aviso *arrayAviso,int limit,int idCliente,int *avisos
 	*avisosdelcliente=contadorAvisos;
  return retorno;
 }
-/** \brief Recibe un valor**************************************************** numérico entero, un mensaje de entrada, un mensaje de error, un valor minimo, un valor maximo y devuelve el valor del resultado por referencia
- *
- * \param Valor correspondiente a la variable *respuesta
- * \param Valor correspondiente a la variable *mensaje, se guarda el mensaje que va a ser leido por el usuario
- * \param Valor correspondiente a la variable *mensajeError, se guarda el mensaje de error que va a ser leido por el usuario
- * \param Valor correspondiente a la variable valor minimo, se guarda el valor minimo para establecerlo como limite de lo que se va a ingresar
- * \param Valor correspondiente a la variable valor maximo, se guarda el valor maximo para establecerlo como limite de lo que se va a ingresar
- * \return Devuelve si hubo error o no
- *
- */
+
+
+
+
 int aviso_buscarLibreRef(Aviso pArrayAviso[],int limit, int *pindex)
 {
 	int retorno=-1;

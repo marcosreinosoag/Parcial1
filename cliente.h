@@ -23,10 +23,10 @@ typedef struct{
 int cliente_init(Cliente * pArrays, int limite);
 int cliente_alta(Cliente *arrayClientes,int limite);
 int cliente_modificar (Cliente * pArrays, int limite);
-
 int cliente_imprimir (Cliente * pArrays , int limite);
 int cliente_buscarIndicePorId (Cliente * pArrays, int limite,int idBuscar);
 int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar,int * pIndice);
 int cliente_buscarLibreRef(Cliente pArrayCliente[],int limit, int *pindex);
+int cliente_altaForzada(Cliente * pArrayCliente,int limiteCliente,char * nombre,char * apellido,char * cuit);
 
 #endif /* CLIENTE_H_ */

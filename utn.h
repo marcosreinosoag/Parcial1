@@ -8,6 +8,7 @@
 #ifndef UTN_H_
 #define UTN_H_
 #define LIMITE_BUFFER_STRING 4096
+#define LIMITE_CONFIRMACION 3
 #define TRUE 1
 #define FALSE 0
 
@@ -16,7 +17,8 @@ int esUnNombreValido(char* cadena,int limite);
 int utn_getNombre(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
 int esUnCuitValido(char* cadena,int limite);
 int utn_getCuit(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
-
+int validarConfirmacion(char* cadena,int limite);
+int utn_getConfirmacion(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
 
 
 
