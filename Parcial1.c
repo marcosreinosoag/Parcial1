@@ -37,7 +37,7 @@ int main(void) {
 					         "///////1)-Cargar Cliente//////////////2)-Modificar Cliente//////////////3)-Dar de baja un Cliente////////4)-Realizar una Publicación//////////////"
 			               "\n///////5)-Pausar Publicacion//////////6)-Reanudar Publicacion////////////7)-Imprimir Clientes/////////////8)-Realizar Informes////////////////////"
 			               "\n/////////////////////////////////////////////////////////////////9)-Salir////////////////////////////////////////////////////////////////////////\n",
-						   "\nError!!!! reingrese numero!!!", &opcionMenu,3,8,1)==0)
+						   "\nError!!!! reingrese numero!!!", &opcionMenu,3,9,1)==0)
 			{
 				switch(opcionMenu)
 				{

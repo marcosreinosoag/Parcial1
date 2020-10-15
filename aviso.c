@@ -295,37 +295,45 @@ int aviso_buscarIndicePorIdRef(Aviso * pArrayAvisos, int limiteAvisos,int idBusc
 	return retorno;
 }
 
-/** \brief Busca el indice por ID y devuelve el indice por referencia
+/** \brief Imprime avisos por ID
 *
 * \param valor Aviso * pArrayAvisos es el puntero al array de Aviso
-* \param valor limiteAvisos es el tamaño del array de Avisos
-* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \param valor Cliente * pArrayCliente es el puntero al array de Cliente
+* \param valor limitCliente es el tamaño del array de
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores *************
 *
 */
-int aviso_imprimirAvisoPorID (Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit, int id)
+int aviso_imprimirAvisoPorID (Aviso * pArrayAviso, int limiteAviso, Cliente * pArrayCliente , int limitCliente, int id)
 {
 	int retorno =-1;
-		if(pArrays != NULL && limite > 0 && pArrayCliente != NULL && limit>0)
+		if(pArrayAviso != NULL && limiteAviso > 0 && pArrayCliente != NULL && limitCliente>0)
 		{
-			for(int i = 0; i<limite; i++)
+			for(int i = 0; i<limiteAviso; i++)
 			{
-				if (pArrays[i].idcliente == id)
+				if (pArrayAviso[i].idcliente == id)
 				{
 					retorno = 0;
-					printf("\n ID CLIENTE: %d - ID PUBLICACION: %d - N° DE RUBRO %d -AVISO PUBLICADO %s ",pArrays[i].idcliente,pArrays[i].idAviso , pArrays[i].numeroRubro, pArrays[i].textoAviso);
+					printf("\n ID CLIENTE: %d - ID PUBLICACION: %d - N° DE RUBRO %d -AVISO PUBLICADO %s ",pArrayAviso[i].idcliente,pArrayAviso[i].idAviso , pArrayAviso[i].numeroRubro, pArrayAviso[i].textoAviso);
 				}
 			}
 		}
 
 	return retorno;
 }
-
-int aviso_imprimirAvisoPorIDAviso (Aviso * pArrays, int limite,int id)
+/** \brief Imprime un aviso por ID
+*
+* \param valor Aviso * pArrays es el puntero al array de Aviso
+* \param valor limiteAvisos es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
+int aviso_imprimirAvisoPorIDAviso (Aviso * pArrays, int limiteAvisos,int id)
 {
 	int retorno =-1;
-		if(pArrays != NULL && limite > 0)
+		if(pArrays != NULL && limiteAvisos > 0)
 		{
-			for(int i = 0; i<limite; i++)
+			for(int i = 0; i<limiteAvisos; i++)
 			{
 				if (pArrays[i].idAviso == id)
 				{
@@ -338,21 +346,24 @@ int aviso_imprimirAvisoPorIDAviso (Aviso * pArrays, int limite,int id)
 	return retorno;
 }
 
+/** \brief Realiza la baja de la publicacion por el id de cliente
+*
+* \param valor Aviso * pArrays es el puntero al array de Aviso
+* \param valor limiteAvisos es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
 
-
-
-
-
-int aviso_bajaIdCliente(Aviso * pArrays, int limite,int idCliente)
+int aviso_bajaIdCliente(Aviso * pArrayAviso, int limiteAviso,int idCliente)
 {
 	int retorno =-1;
-	if(pArrays != NULL && limite > 0)
+	if(pArrayAviso != NULL && limiteAviso > 0)
 	{
-		for(int i = 0; i<limite; i++)
+		for(int i = 0; i<limiteAviso; i++)
 		{
-			if (pArrays[i].idcliente == idCliente)
+			if (pArrayAviso[i].idcliente == idCliente)
 			{
-				pArrays[i].isEmpty=TRUE;
+				pArrayAviso[i].isEmpty=TRUE;
 				retorno = 0;
 			}
 		}
@@ -361,17 +372,24 @@ int aviso_bajaIdCliente(Aviso * pArrays, int limite,int idCliente)
 }
 
 
+/** \brief Desarrolla la suma total de avisos realizados por el cliente y devuelve la suma por referencia
+*
+* \param valor Aviso *arrayAviso es el puntero al array de Aviso
+* \param valor limitAviso es el tamaño del array de Avisos
+* \param valor idCliente recibe el id del cliente para realizar la suma de los avisos
+* \param valor *avisosdelcliente devuelve la suma total de aviso realiados por el cliente
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
 
-
-
-int cliente_contadorAvisos(Aviso *arrayAviso,int limit,int idCliente,int *avisosdelcliente)
+int cliente_contadorAvisos(Aviso *arrayAviso,int limitAviso,int idCliente,int *avisosdelcliente)
 {
 	int retorno =-1;
 	int contadorAvisos=0;
 	int i;
-		if(arrayAviso != NULL && limit > 0)
+		if(arrayAviso != NULL && limitAviso > 0)
 		{
-			for(i = 0; i<limit; i++)
+			for(i = 0; i<limitAviso; i++)
 			{
 				if (arrayAviso[i].idcliente == idCliente &&
 						arrayAviso[i].isEmpty==FALSE)
@@ -385,16 +403,22 @@ int cliente_contadorAvisos(Aviso *arrayAviso,int limit,int idCliente,int *avisos
  return retorno;
 }
 
+/** \brief Busca un espacio vacio en el array de Avisos y devuelve el indice por referencia
+*
+* \param valor Aviso *arrayAviso es el puntero al array de Aviso
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \param valor *pindex
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
 
-
-
-int aviso_buscarLibreRef(Aviso pArrayAviso[],int limit, int *pindex)
+int aviso_buscarLibreRef(Aviso pArrayAviso[],int limiteAvisos, int *pindex)
 {
 	int retorno=-1;
 	int i;
-	if(pArrayAviso !=NULL && limit>0 && pindex!=NULL)
+	if(pArrayAviso !=NULL && limiteAvisos>0 && pindex!=NULL)
 	{
-		for(i = 0;i<limit;i++)
+		for(i = 0;i<limiteAvisos;i++)
 		{
 			if(pArrayAviso[i].isEmpty==TRUE)
 			{
@@ -406,6 +430,9 @@ int aviso_buscarLibreRef(Aviso pArrayAviso[],int limit, int *pindex)
 	}
 	return retorno;
 }
+/** \brief Genera un Id para asociarlo a cada aviso
+*
+*/
 static int aviso_generarNuevoId (void)
 {
 	static int id = 0;

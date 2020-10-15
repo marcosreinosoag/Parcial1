@@ -51,7 +51,7 @@ int cliente_alta(Cliente *arrayClientes,int limiteArrayClientes)
 	{
 		if(cliente_buscarLibreRef(arrayClientes,limiteArrayClientes,&indice)==0)
 		{
-			if(utn_getNombre("\nINGRESE NOMBRE: ", "\ERROR!!!!! REINGRESE EL NOMBRE: ",bufferClientes.nombre,3,LONG_NOMBRE)==0 &&
+			if(utn_getNombre("\nINGRESE NOMBRE: ", "\nERROR!!!!! REINGRESE EL NOMBRE: ",bufferClientes.nombre,3,LONG_NOMBRE)==0 &&
 				utn_getNombre("\nINGRESE APELLIDO: ","\n ERROR!!!!!! REINGRESE EL APELLIDO: ",bufferClientes.apellido,3, LONG_NOMBRE)==0 &&
 				utn_getCuit("\nINGRESE CUIT: ", "\ERROR!!!!! REINGRESE CUIT: ", bufferClientes.cuit,3,LONG_NOMBRE)==0)
 			{
