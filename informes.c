@@ -204,12 +204,20 @@ int menu_Consultas(Aviso * pArrayAviso, int limiteAviso, Cliente * pArrayCliente
 						{
 							retorno=0;
 						}
+						else
+						{
+							printf("No hay clientes con avisos");
+						}
 						break;
 					case 2:
 						if(aviso_contarAvisosPausadosRef(pArrayAviso,limiteAviso,&contadorAvisosPausados)==0)
 						{
 							printf("La cantidad de avisos pausados es: %d",contadorAvisosPausados);
 							retorno=0;
+						}
+						else
+						{
+							printf("No hay avisos publicados");
 						}
 						break;
 					case 3:
