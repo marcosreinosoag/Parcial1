@@ -13,6 +13,7 @@
 #include "utn.h"
 #include "cliente.h"
 #include "aviso.h"
+#include "informes.h"
 
 
 int main(void) {
@@ -25,15 +26,18 @@ int main(void) {
 	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Martin","Lopez","20-38515954-3");
 	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Marcos","Reinoso","20-40304546-3");
 	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Analia","Perez","20-20515954-2");
-	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Marcos","Reinoso","20-26304546-6");
+	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Juana","Perez","20-26304546-6");
 
-	aviso_altaForzada(arrayAviso,QTY_AVISOS);
+
 
 
 	do
 	{
-			if(utn_getEntero("\nBIENVENIDO!!!!!!!!!!!!!!!!!!\n1-Cargar Cliente\n2- Modificar Cliente\n3- Dar de baja un Cliente\n4-Realizar una Publicación"
-			 "\n5-Pausar Publicacion\n6-Reanudar Publicacion\n7-Imprimir Clientes\n8-Realizar Consulta\n9-Salir\n","\nError!!!! reingrese numero!!!", &opcionMenu,3,8,1)==0)
+			if(utn_getEntero("\n////////////////////////////////////////////////////////////////BIENVENIDO!!!!!!!!!!!!!!!!!!///////////////////////////////////////////////////////\n"
+					         "///////1)-Cargar Cliente//////////////2)-Modificar Cliente//////////////3)-Dar de baja un Cliente////////4)-Realizar una Publicación//////////////"
+			               "\n///////5)-Pausar Publicacion//////////6)-Reanudar Publicacion////////////7)-Imprimir Clientes/////////////8)-Realizar Informes////////////////////"
+			               "\n/////////////////////////////////////////////////////////////////9)-Salir////////////////////////////////////////////////////////////////////////\n",
+						   "\nError!!!! reingrese numero!!!", &opcionMenu,3,8,1)==0)
 			{
 				switch(opcionMenu)
 				{

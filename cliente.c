@@ -14,7 +14,7 @@
 
 static int cliente_generarNuevoId (void);
 
-/** \brief Inicializa el array de clientes
+/** \brief Inicializa el array de clientes con espacios vacios
 *
  * \param Valor Cliente *arrayClientes es el puntero al array de clientes
  * \param Valor limiteCliente es el tamaño del array de clientes
@@ -248,9 +248,9 @@ static int cliente_generarNuevoId (void)
  *
  * \param Valor Cliente *arrayClientes es el puntero al array de clientes
  * \param Valor limiteCliente es el tamaño del array de clientes
- * \param Valor * pindex es el puntero al nombre que ingresa el usuario
- * \param Valor * pindex es el puntero al apellido que ingresa el usuario
- * \param Valor * pindex es el puntero al cuit que ingresa el usuario
+ * \param Valor * nombre es el puntero al nombre que ingresa el usuario
+ * \param Valor * apellido es el puntero al apellido que ingresa el usuario
+ * \param Valor * cuit es el puntero al cuit que ingresa el usuario
  * \return Devuelve 0 si no hubo errores y -1 si hubo errores
  *
  */

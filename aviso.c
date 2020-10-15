@@ -5,28 +5,39 @@
 #include "utn.h"
 #include "aviso.h"
 
+
 static int aviso_generarNuevoId (void);
-
-
-
-
-int aviso_init(Aviso * pArrays, int limite)
+/** \brief Inicializa el array de avisos con espacios vacios
+*
+ * \param Valor Aviso *pArrayAvisos es el puntero al array de avisos
+ * \param Valor limiteAviso es el tamaño del array de avisos
+ * \return Devuelve 0 si no hubo errores y -1 si hubo errores
+ *
+ */
+int aviso_init(Aviso * pArrayAvisos, int limiteAviso)
 {
 	int retorno = -1;
-	if (pArrays != NULL && limite >0)
+	if (pArrayAvisos != NULL && limiteAviso >0)
 	{
-		for (int i = 0; i<limite; i++ )
+		for (int i = 0; i<limiteAviso; i++ )
 		{
-			pArrays[i].isEmpty = TRUE;
+			pArrayAvisos[i].isEmpty = TRUE;
 		}
 		retorno = 0;
 	}
 	return retorno;
 }
 
-
-
-int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,int limit)
+/** \brief Realiza la baja del cliente
+*
+ * \param Valor Cliente *pArraysCliente es el puntero al array de Clientes
+ * \param Valor limiteCliente es el tamaño del array de clientes
+ * \param valor Aviso *arrayAviso es el puntero al array de Avisos
+ * \param valor limitAviso es el tamaño del array de Avisos
+ * \return Devuelve 0 si no hubo errores y -1 si hubo errores
+ *
+ */
+int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,int limitAviso)
 {
 	int retorno = -1;
 	int idABorrar;
@@ -38,12 +49,12 @@ int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,
 		cliente_imprimir(pArraysCliente, limiteCliente);
 		if(utn_getEntero("\nINGRESE EL ID QUE DESEA BORRAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idABorrar,3,9999,0)==0)
 			if(cliente_buscarIndicePorIdRef(pArraysCliente, limiteCliente, idABorrar,&indiceABorrarCliente)== 0 &&
-				aviso_imprimirAvisoPorID(arrayAviso,limit,pArraysCliente,limiteCliente,idABorrar)==0)
+				aviso_imprimirAvisoPorID(arrayAviso,limitAviso,pArraysCliente,limiteCliente,idABorrar)==0)
 			{
 				utn_getEntero("¿DESEA CONTINUAR LA BAJA DEL CLIENTE? 1(SI) 2(NO)", "ERROR!!!!!!!EL REGISTRO SERA ELIMINADO¿DESEA CONTINUAR? ",&confirmacion,3, 2, 1);
 				if(confirmacion)
 				{
-					aviso_bajaIdCliente(arrayAviso,limit,indiceABorrarCliente);
+					aviso_bajaIdCliente(arrayAviso,limitAviso,indiceABorrarCliente);
 					pArraysCliente[indiceABorrarCliente].isEmpty=TRUE;
 				}
 			}
@@ -51,20 +62,30 @@ int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,
 	return retorno;
 }
 
-
-int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit)
+/** \brief Realiza el alta del aviso
+*
+ * \param valor Aviso *arrayAviso es el puntero al array de Avisos
+ * \param valor limiteAviso es el tamaño del array de Avisos
+ * \param Valor Cliente *pArrayClientes es el puntero al array de Clientes
+ * \param Valor limiteCliente es el tamaño del array de clientes
+ *
+ * \return Devuelve 0 si no hubo errores y -1 si hubo errores
+ *
+ */
+int aviso_alta(Aviso *arrayAviso,int limiteAviso, Cliente *pArrayClientes,int limiteCliente)
 {
 	int retorno=-1;
 	int indice;
+	char estadoPublicacion[8];
 	Aviso bufferAviso;
-	if(arrayAviso!=NULL && limite>0 )
+	if(arrayAviso!=NULL && limiteAviso>0 )
 	{
-		if(aviso_buscarLibreRef(arrayAviso,limite,&indice)==0)
+		if(aviso_buscarLibreRef(arrayAviso,limiteAviso,&indice)==0)
 		{
-			cliente_imprimir(pArrayClientes,limit);
+			cliente_imprimir(pArrayClientes,limiteCliente);
 			if(utn_getEntero("\nINGRESE ID DEL CLIENTE: ","\n ID NO ENCONTRADO ",&bufferAviso.idcliente,3,99999999,0)==0 &&
-				cliente_buscarIndicePorId(pArrayClientes,limit,bufferAviso.idcliente) != -1 &&
-				utn_getEntero("INGRESE NUMERO DE RUBRO ","ERROR!!!! NUMERO MAL INGRESADO ",&bufferAviso.numeroRubro,3,99999,0)==0 &&
+				cliente_buscarIndicePorId(pArrayClientes,limiteCliente,bufferAviso.idcliente) != -1 &&
+				utn_getEntero("\nINGRESE NUMERO DE RUBRO ","ERROR!!!! NUMERO MAL INGRESADO ",&bufferAviso.numeroRubro,3,99999,0)==0 &&
 				utn_getNombre("\nINGRESE EL AVISO QUE DESEA PUBLICAR: ","ERROR!!!!! EL AVISO PODRIA ESTAR EXEDIENDO LA CANTIDAD DE CARACTERES PERMITIDOS(64 CARACTERES)\n", bufferAviso.textoAviso,3,QTY_CARACTERES)==0)
 			{
 				bufferAviso.isEmpty=FALSE;
@@ -72,10 +93,18 @@ int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit)
 				arrayAviso[indice].isEmpty=FALSE;
 				arrayAviso[indice].idAviso=aviso_generarNuevoId();
 				arrayAviso[indice].estadoPublicacion=TRUE;
+				if(arrayAviso[indice].estadoPublicacion==TRUE)
+				{
+					strncpy(estadoPublicacion,"activa",8);
+				}
+				else
+				{
+					strncpy(estadoPublicacion,"pausada",8);
+				}
 				printf("\n ////////////////////////////////////////////////////////////ALTA REALIZADA CORRECTAMENTE////////////////////////////////////////////////////////////////////////////////////\n"
-						"                                        ID CLIENTE: %d - NUMERO DE RUBRO: %d - TEXTO DEL AVISO %s -ID AVISO: %d                       \n"
+						"                                        ID CLIENTE: %d - NUMERO DE RUBRO: %d - TEXTO DEL AVISO %s-ESTADO DE LA PUBLICACION: %s -ID AVISO: %d                       \n"
 						"////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n"
-						,arrayAviso[indice].idcliente ,arrayAviso[indice].numeroRubro , arrayAviso[indice].textoAviso, arrayAviso[indice].idAviso);
+						,arrayAviso[indice].idcliente ,arrayAviso[indice].numeroRubro , arrayAviso[indice].textoAviso,estadoPublicacion,arrayAviso[indice].idAviso);
 				retorno = 0;
 			}
 			else
@@ -90,21 +119,28 @@ int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit)
 	}
 	return retorno;
 }
-
-
-
-int cliente_imprimirAvisos(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit)
+/** \brief Imprime una lista de clientes con todos sus datos junto con la cantidad de avisos activos.
+*
+ * \param valor Aviso * pArrayAviso es el puntero al array de Avisos
+ * \param valor limiteAviso es el tamaño del array de Avisos
+ * \param Valor Cliente *pArrayClientes es el puntero al array de Clientes
+ * \param Valor limiteCliente es el tamaño del array de clientes
+ *
+ * \return Devuelve 0 si no hubo errores y -1 si hubo errores
+ *
+ */
+int cliente_imprimirAvisos(Aviso * pArrayAviso, int limiteAviso, Cliente * pArrayCliente , int limiteCliente)
 {
 	int retorno = -1;
 	int avisosdelcliente;
 
-	if (pArrays != NULL && limite >0 && pArrayCliente!=NULL && limit>0)
+	if (pArrayAviso != NULL && limiteAviso >0 && pArrayCliente!=NULL && limiteCliente>0)
 	{
-			for (int i=0 ; i<limit ; i++)
+			for (int i=0 ; i<limiteCliente ; i++)
 			{
 				if(pArrayCliente[i].isEmpty == FALSE)
 				{
-					cliente_contadorAvisos(pArrays,limite,pArrayCliente[i].idCliente,&avisosdelcliente);
+					cliente_contadorAvisos(pArrayAviso,limiteAviso,pArrayCliente[i].idCliente,&avisosdelcliente);
 					printf("\nNombre: %s - Apellido: %s - Cuit: %s - ID: %d "
 							"\n Avisos realizados: %d",pArrayCliente[i].nombre,pArrayCliente[i].apellido, pArrayCliente[i].cuit , pArrayCliente[i].idCliente,avisosdelcliente);
 				}
@@ -114,26 +150,40 @@ int cliente_imprimirAvisos(Aviso * pArrays, int limite, Cliente * pArrayCliente 
 	return retorno;
 }
 
+/** \brief Realiza el cambio de estado en la publicacion de activa a pausada
+*
+* \param Valor Cliente * pArrayCliente es el puntero al array de Clientes
+* \param Valor limitCliente es el tamaño del array de clientes
+* \param valor Aviso *arrayAviso es el puntero al array de Avisos
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
 
-int aviso_pausarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int limit)
+int aviso_pausarpublicacion (Cliente * pArrayCliente, int limiteCliente,Aviso *arrayAviso,int limiteAviso)
 {
 	int retorno = -1;
 	int idAviso;
 	int indiceCliente;
 	int pIndice;
-	char confirmacionPausa[2];
+	int confirmacionPausa;
 
-	if (pArrays != NULL && limite >0 && arrayAviso!=NULL && limit>0)
+	if (pArrayCliente != NULL && limiteCliente >0 && arrayAviso!=NULL && limiteAviso>0)
 	{
 		avisos_imprimir(arrayAviso ,QTY_AVISOS);
 		if(utn_getEntero("\nINGRESE EL ID DE LA PUBLICACION QUE DESEA PAUSAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idAviso,3,9999,0)==0 &&
 			aviso_buscarIndicePorIdRef(arrayAviso,QTY_AVISOS,idAviso,&indiceCliente)==0)
-		{
-			cliente_buscarIndicePorIdRef (pArrays,QTY_CLIENTES,arrayAviso[indiceCliente].idcliente,&pIndice);
-			printf("\nID CLIENTE: %d - NOMBRE: %s - APELLIDO %s - CUIT %s",pArrays[pIndice].idCliente,pArrays[pIndice].nombre, pArrays[pIndice].apellido , pArrays[pIndice].cuit);
-			if(utn_getNombre("ATENCION!!! LA PUBLICACION SERA PAUSADA ¿Desea continuar?","ERROR!!!!!!!! ",confirmacionPausa, 3, 2))
+			{
+			cliente_buscarIndicePorIdRef (pArrayCliente,limiteCliente,arrayAviso[indiceCliente].idcliente,&pIndice);
+			printf("\nID CLIENTE: %d - NOMBRE: %s - APELLIDO %s - CUIT %s",pArrayCliente[pIndice].idCliente,pArrayCliente[pIndice].nombre, pArrayCliente[pIndice].apellido , pArrayCliente[pIndice].cuit);
+			utn_getEntero("ATENCION!!!¿LA PUBLICACION SERA PAUSADA ¿DESEA CONTINUAR? 1(SI) 2(NO)", "ERROR REINGRESE EL NUMERO!!!! EL REGISTRO SERA PAUSADO¿DESEA CONTINUAR? ",&confirmacionPausa,3, 2, 1);
+			if(confirmacionPausa)
 			{
 				arrayAviso[indiceCliente].estadoPublicacion=FALSE;
+			}
+			else
+			{
+				printf("Usted esta voliviendo al menu");
 			}
 		}
 		else
@@ -143,98 +193,94 @@ int aviso_pausarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int
 	}
 	return retorno;
 }
-int aviso_reaunudarpublicacion (Cliente * pArrays, int limite,Aviso *arrayAviso,int limit)
+
+/** \brief Realiza el cambio de estado en la publicacion de activa a pausada
+*
+* \param Valor Cliente * pArrayCliente es el puntero al array de Clientes
+* \param Valor limitCliente es el tamaño del array de clientes
+* \param valor Aviso *arrayAviso es el puntero al array de Avisos
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
+int aviso_reaunudarpublicacion (Cliente * pArrayCliente, int limiteCliente,Aviso *arrayAviso,int limiteAviso)
 {
 	int retorno = -1;
 	int idAviso;
 	int indiceCliente;
 	int pIndice;
-	char confirmacionReanudar [2];
+	int confirmacionReanudar;
 
-	if (pArrays != NULL && limite >0 && arrayAviso!=NULL && limit>0)
+	if (pArrayCliente != NULL && limiteCliente >0 && arrayAviso!=NULL && limiteAviso>0)
 	{
 		avisos_imprimir(arrayAviso ,QTY_AVISOS);
 		if(utn_getEntero("\nINGRESE EL ID DE LA PUBLICACION QUE DESEA REANUDAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idAviso,3,9999,0)==0 &&
-			aviso_buscarIndicePorIdRef(arrayAviso,QTY_AVISOS,idAviso,&indiceCliente)==0)
+			aviso_buscarIndicePorIdRef(arrayAviso,limiteAviso,idAviso,&indiceCliente)==0)
 		{
-			cliente_buscarIndicePorIdRef (pArrays,QTY_CLIENTES,arrayAviso[indiceCliente].idcliente,&pIndice);
-			if(utn_getNombre("ATENCION!!! LA PUBLICACION SERA REACTIVADA ¿DESEA CONTINUAR?","ERROR!!!!!!!! ",confirmacionReanudar, 3, 2))
+			cliente_buscarIndicePorIdRef (pArrayCliente,QTY_CLIENTES,arrayAviso[indiceCliente].idcliente,&pIndice);
+			utn_getEntero("ATENCION!!! LA PUBLICACION SERA REACTIVADO ¿DESEA CONTINUAR? 1(SI) 2(NO)", "ERROR REINGRESE EL NUMERO!!!! EL AVISO SERA REACTIVADO¿DESEA CONTINUAR? ",&confirmacionReanudar,3, 2, 1);
+			if(confirmacionReanudar)
 			{
 				arrayAviso[indiceCliente].estadoPublicacion=TRUE;
 			}
-
+			else
+			{
+				printf("Usted esta voliviendo al menu");
+			}
 		}
 	}
 	return retorno;
 }
-
-int menu_Consultas(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit)
-{
-	int retorno=-1;
-	char opcionMenu;
-	int contadorAvisosPausados=0;
-	if (pArrays != NULL && limite >0 && pArrayCliente!=NULL && limit>0)
-	{
-		do
-		{
-			if(utn_getNombre("\n Ingrese: a) Cliente con más avisos.\n          b) Cantidad de avisos pausados. \n          c) Rubro con mas avisos", "ERROR!!! LETRA MAL INGRESADA",&opcionMenu,3,1)==0)
-			{
-				switch(opcionMenu)
-				{
-					case 'a':
-
-						break;
-					case 'b':
-							for(int i = 0; i<limite; i++)
-							{
-								if (pArrays[i].estadoPublicacion == FALSE &&
-										pArrays[i].isEmpty== FALSE)
-								{
-									contadorAvisosPausados++;
-								}
-							}
-							printf("La cantidad de avisos pausados es: %d",contadorAvisosPausados);
-						    break;
-					case 'c':
-
-						break;
-
-				}
-				retorno= 0;
-			}
-		}while(opcionMenu =='a' && opcionMenu =='b' && opcionMenu =='c');
-	}
-	return retorno;
-}
-
-int avisos_imprimir (Aviso * pArrays , int limite)
+/** \brief Imprime los avisos publicados
+*
+* \param valor Aviso * pArrayAviso es el puntero al array de Aviso
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
+int avisos_imprimir (Aviso * pArrayAviso , int limiteAviso)
 {
 	int retorno = -1;
-	if (pArrays != NULL && limite >0)
+	int i;
+	char estadoPublicacion[8];
+	if (pArrayAviso != NULL && limiteAviso >0)
 	{
-		for (int i=0 ; i<limite ; i++)
+		for (i=0 ; i<limiteAviso ; i++)
 		{
-			if(pArrays[i].isEmpty == FALSE)
+			if(pArrayAviso[i].isEmpty == FALSE)
 			{
-				printf("\nID de cliente: %d - Numero de rubro: %d - Texto del aviso %s - ID Aviso %d",pArrays[i].idcliente,pArrays[i].numeroRubro, pArrays[i].textoAviso , pArrays[i].idAviso);
+				if(pArrayAviso[i].estadoPublicacion == TRUE)
+				{
+					strncpy(estadoPublicacion,"activa",8);
+				}
+				else
+				{
+					strncpy(estadoPublicacion,"pausada",8);
+				}
+				printf("\nID de cliente: %d - Numero de rubro: %d - Texto del aviso %s - Estado de la publicacion: %s - ID Aviso %d",pArrayAviso[i].idcliente,pArrayAviso[i].numeroRubro, pArrayAviso[i].textoAviso,estadoPublicacion, pArrayAviso[i].idAviso);
 			}
 		}
 		retorno = 0;
 	}
 return retorno;
 }
-
-
-int aviso_buscarIndicePorIdRef(Aviso * pArrays, int limite,int idBuscar, int * pIndice)
+/** \brief Busca el indice por ID y devuelve el indice por referencia
+*
+* \param valor Aviso * pArrayAvisos es el puntero al array de Aviso
+* \param valor limiteAvisos es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
+int aviso_buscarIndicePorIdRef(Aviso * pArrayAvisos, int limiteAvisos,int idBuscar, int * pIndice)
 {
 	int retorno = -1;
 	int i ;
-		if (pArrays != NULL && limite >0 && idBuscar >= 0)
+		if (pArrayAvisos != NULL && limiteAvisos >0 && idBuscar >= 0)
 		{
-				for ( i = 0; i<limite; i++)
+				for ( i = 0; i<limiteAvisos; i++)
 				{
-					if(pArrays[i].isEmpty == FALSE &&
-					   pArrays[i].idAviso == idBuscar)
+					if(pArrayAvisos[i].isEmpty == FALSE &&
+					   pArrayAvisos[i].idAviso == idBuscar)
 					{
 					*pIndice= i;
 					retorno = 0;
@@ -249,8 +295,13 @@ int aviso_buscarIndicePorIdRef(Aviso * pArrays, int limite,int idBuscar, int * p
 	return retorno;
 }
 
-
-
+/** \brief Busca el indice por ID y devuelve el indice por referencia
+*
+* \param valor Aviso * pArrayAvisos es el puntero al array de Aviso
+* \param valor limiteAvisos es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*/
 int aviso_imprimirAvisoPorID (Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit, int id)
 {
 	int retorno =-1;
@@ -361,5 +412,6 @@ static int aviso_generarNuevoId (void)
 	id = id+1;
 	return id;
 }
+
 
 
