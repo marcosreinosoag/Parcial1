@@ -17,10 +17,19 @@
 #define QTY_AVISOS 1000
 
 int menu_Consultas(Aviso * pArrays, int limite, Cliente * pArrayCliente , int limit);
-int informes_clienteConMasAvisos(Cliente *pArrayCliente,int limitCliente,Aviso *pArrayAviso,int limiteAviso);
-int informes_contadorClienteAvisos(Aviso *pArrayAviso,int limiteAvisos,int id,int *pContador);
+
+int aviso_contarClientesConMasAvisos(Aviso *pArrayAviso,int limiteAviso,Cliente* pArrayCliente,int limiteCliente);
+int informes_contadorAvisosClientes(Aviso *pArrayAviso,int limiteAvisos,int id,int *pContador);
+
+
+
 int aviso_contarAvisosPausadosRef(Aviso *pArrayAviso,int limiteAviso,int *contadorAvisosPausados);
 int aviso_contarRubrosConMasAvisos(Aviso *pArrayAviso,int limiteAviso);
 int informes_contadorRubroAvisos(Aviso *pArrayAviso,int limiteAvisos,int rubro,int *pContador);
+
+
+
+int informes_contadorClienteAvisosPausados(Aviso *pArrayAviso,int limiteAviso,int id,int *pContador);
+int aviso_clienteConMasAvisosPausados(Cliente *pArrayCliente,int limitCliente,Aviso *pArrayAviso,int limiteAviso);
 
 #endif /* INFORMES_H_ */

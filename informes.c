@@ -21,13 +21,119 @@
 * \return Devuelve 0 si no hubo errores y -1 si hubo errores
 *
 */
-int informes_contadorClienteAvisos(Aviso *pArrayAviso,int limiteAviso,int id,int *pContador)
+int informes_contadorAvisosPausadosCliente(Aviso *pArrayAviso,int limiteAvisos,int id,int *pContador)
 {
 	int retorno=-1;
 	int contador=0;
+	if(pArrayAviso!=NULL && limiteAvisos>0)
+	{
+		for(int i=0;i<limiteAvisos;i++)
+		{
+			if(pArrayAviso[i].idcliente==id && pArrayAviso[i].estadoPublicacion==FALSE )
+			{
+				contador++;
+			}
+		}
+		*pContador=contador;
+		retorno=0;
+	}
+return retorno;
+}
+
+int aviso_contarClientesConMasAvisosPausados(Aviso *pArrayAviso,int limiteAviso,Cliente* pArrayCliente,int limiteCliente)
+{
+	int retorno=-1;
+	int contadorPublicaciones;
+	int contadorMaximo;
+	int i=0;
+	Aviso bufferAux;
 	if(pArrayAviso!=NULL && limiteAviso>0)
 	{
-		for(int i=0;i<limiteAviso;i++)
+		for(i=0;i<limiteAviso;i++)
+		{
+			if(pArrayAviso[i].isEmpty == FALSE &&
+			  informes_contadorAvisosPausadosCliente(pArrayAviso,limiteAviso,pArrayAviso[i].idcliente,&contadorPublicaciones)==0)
+			{
+				if(i==0 || contadorPublicaciones>contadorMaximo)
+				{
+					contadorMaximo = contadorPublicaciones;
+					bufferAux = pArrayAviso[i];
+					retorno=0;
+				}
+			}
+		}
+		cliente_imprimirClientePorID(pArrayCliente, limiteCliente, bufferAux.idcliente,"El cliente con mas avisos Pausados es:");
+		printf("Con %d Avisos",contadorMaximo);
+	}
+return retorno;
+
+}
+
+
+
+int informes_contadorAvisosActivosCliente(Aviso *pArrayAviso,int limiteAvisos,int id,int *pContador)
+{
+	int retorno=-1;
+	int contador=0;
+	if(pArrayAviso!=NULL && limiteAvisos>0)
+	{
+		for(int i=0;i<limiteAvisos;i++)
+		{
+			if(pArrayAviso[i].idcliente==id && pArrayAviso[i].estadoPublicacion==TRUE )
+			{
+				contador++;
+			}
+		}
+		*pContador=contador;
+		retorno=0;
+	}
+return retorno;
+}
+
+int aviso_contarClientesConMasAvisosActivos(Aviso *pArrayAviso,int limiteAviso,Cliente* pArrayCliente,int limiteCliente)
+{
+	int retorno=-1;
+	int contadorPublicaciones;
+	int contadorMaximo;
+	int i=0;
+	Aviso bufferAux;
+	if(pArrayAviso!=NULL && limiteAviso>0)
+	{
+		for(i=0;i<limiteAviso;i++)
+		{
+			if(pArrayAviso[i].isEmpty == FALSE &&
+			  informes_contadorAvisosActivosCliente(pArrayAviso,limiteAviso,pArrayAviso[i].idcliente,&contadorPublicaciones)==0)
+			{
+				if(i==0 || contadorPublicaciones>contadorMaximo)
+				{
+					contadorMaximo = contadorPublicaciones;
+					bufferAux = pArrayAviso[i];
+					retorno=0;
+				}
+			}
+		}
+		cliente_imprimirClientePorID(pArrayCliente, limiteCliente, bufferAux.idcliente,"El cliente con mas avisos Activos es:");
+		printf("Con %d Avisos",contadorMaximo);
+	}
+return retorno;
+
+}
+/** \brief Informa el cliente con mas avisos
+*
+* \param valor Cliente *pArrayCliente es el puntero al array de Cliente
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \param valor Aviso *pArrayAviso es el puntero al array de Avisos
+* \param valor limiteAviso es el tamaño del array de Avisos
+* \return Devuelve 0 si no hubo errores y -1 si hubo errores
+*
+*///////////////////////////////////////////////////////////////////////////////
+int informes_contadorAvisosCliente(Aviso *pArrayAviso,int limiteAvisos,int id,int *pContador)
+{
+	int retorno=-1;
+	int contador=0;
+	if(pArrayAviso!=NULL && limiteAvisos>0)
+	{
+		for(int i=0;i<limiteAvisos;i++)
 		{
 			if(pArrayAviso[i].idcliente==id)
 			{
@@ -40,42 +146,33 @@ int informes_contadorClienteAvisos(Aviso *pArrayAviso,int limiteAviso,int id,int
 return retorno;
 }
 
-
-/** \brief Informa el cliente con mas avisos
-*
-* \param valor Cliente *pArrayCliente es el puntero al array de Cliente
-* \param valor limiteAviso es el tamaño del array de Avisos
-* \param valor Aviso *pArrayAviso es el puntero al array de Avisos
-* \param valor limiteAviso es el tamaño del array de Avisos
-* \return Devuelve 0 si no hubo errores y -1 si hubo errores
-*
-*/
-int informes_clienteConMasAvisos(Cliente *pArrayCliente,int limitCliente,Aviso *pArrayAviso,int limiteAviso)
+int aviso_contarClientesConMasAvisos(Aviso *pArrayAviso,int limiteAviso,Cliente* pArrayCliente,int limiteCliente)
 {
 	int retorno=-1;
 	int contadorPublicaciones;
 	int contadorMaximo;
-	int indice;
-	Cliente bufferMax;
-
-	if(pArrayCliente!=NULL && limitCliente>0 && pArrayAviso!=NULL && limiteAviso>0)
+	int i=0;
+	Aviso bufferAux;
+	if(pArrayAviso!=NULL && limiteAviso>0)
 	{
-		for(int i=0;i<limitCliente;i++)
+		for(i=0;i<limiteAviso;i++)
 		{
-			informes_contadorClienteAvisos(pArrayAviso,limiteAviso,pArrayCliente[i].idCliente, &contadorPublicaciones);
-			if(i==0 || contadorPublicaciones>contadorMaximo)
+			if(pArrayAviso[i].isEmpty == FALSE &&
+			  informes_contadorAvisosCliente(pArrayAviso,limiteAviso,pArrayAviso[i].idcliente,&contadorPublicaciones)==0)
 			{
-				contadorMaximo=contadorPublicaciones;
-				bufferMax = pArrayCliente[i];
+				if(i==0 || contadorPublicaciones>contadorMaximo)
+				{
+					contadorMaximo = contadorPublicaciones;
+					bufferAux = pArrayAviso[i];
+					retorno=0;
+				}
 			}
 		}
-		if(cliente_buscarIndicePorIdRef(pArrayCliente,limitCliente,bufferMax.idCliente,&indice)==0)
-		{
-			printf("\n El cliente con mas avisos es: %s %s Cuit: %s",pArrayCliente[indice].nombre,pArrayCliente[indice].apellido,pArrayCliente[indice].cuit);
-			retorno=0;
-		}
+		cliente_imprimirClientePorID(pArrayCliente, limiteCliente, bufferAux.idcliente,"El cliente con mas avisos es:");
+		printf("Con %d Avisos",contadorMaximo);
 	}
-	return retorno;
+return retorno;
+
 }
 /** \brief Informa cuantos avisos estan pausados y devuelve el resultado por referencia
 *
@@ -170,6 +267,11 @@ return retorno;
 
 }
 
+
+
+
+
+
 /** \brief Menu para realizar los informes
 *
 ** \param valor Aviso *pArrayAviso es el puntero al array de Avisos
@@ -193,14 +295,16 @@ int menu_Consultas(Aviso * pArrayAviso, int limiteAviso, Cliente * pArrayCliente
 					         "\n/////INGRESE: 1) Cliente con más avisos.//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
 					         "\n//////////////2) Cantidad de avisos pausados.////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
 					         "\n//////////////3) Rubro con mas avisos///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
-					         "\n//////////////4) Salir////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
-							 "\n\n////////////////////////////////////////////////////////ERROR!!! NUMERO MAL INGRESADO!!!!////////////////////////////////////////////////////////////////////////",
+					         "\n//////////////4) Cliente con mas avisos activos/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
+							 "\n//////////////5) Cliente con mas avisos pausados///////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
+					         "\n//////////////6) Salir////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+							 "\n\n////////////////////////////////////////////////////////ERROR!!! NUMERO MAL INGRESADO!!!!///////////////////////////////////////////////////////////////////////",
 							 &opcionMenu,3,4,1)==0)
 			{
 				switch(opcionMenu)
 				{
 					case  1:
-						if(informes_clienteConMasAvisos(pArrayCliente, limitCliente, pArrayAviso, limiteAviso)==0)
+						if(aviso_contarClientesConMasAvisos(pArrayAviso, limiteAviso, pArrayCliente, limitCliente)==0)
 						{
 							retorno=0;
 						}
@@ -230,11 +334,27 @@ int menu_Consultas(Aviso * pArrayAviso, int limiteAviso, Cliente * pArrayCliente
 							printf("\n No hay rubros cargados");
 						}
 						break;
+					case 4:
+						if(aviso_contarClientesConMasAvisosActivos(pArrayAviso, limiteAviso, pArrayCliente, limitCliente)==0)
+						{
+							retorno=0;
+						}
+						else
+						{
+							printf("\n No hay avisos Activos cargados");
+						}
+						break;
+					case 5:
+						if(aviso_contarClientesConMasAvisosPausados(pArrayAviso, limiteAviso, pArrayCliente, limitCliente)==0)
+						{
+							retorno=0;
+						}
+						break;
 
 				}
 				retorno= 0;
 			}
-		}while(opcionMenu !=4);
+		}while(opcionMenu !=6);
 	}
 	return retorno;
 

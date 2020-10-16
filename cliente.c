@@ -105,7 +105,7 @@ int cliente_modificar (Cliente * pArrays, int limiteCliente)
 					utn_getNombre("\nINGRESE NUEVO APELLIDO","ERROR!!!REINGRESE APELLIDO",bufferCliente.apellido,3,LONG_NOMBRE) == 0 &&
 					utn_getCuit("INGRESE NUEVO CUIT","ERROR!!! REINGRESE CUIT", bufferCliente.cuit, 3, LONG_NOMBRE) == 0)
 					{
-						pArrays[indiceAModificar] = bufferCliente; // COPIAMOS AL ARRAY
+						pArrays[indiceAModificar] = bufferCliente;
 						retorno = 0;
 					}
 				}
@@ -272,5 +272,24 @@ int cliente_altaForzada(Cliente * pArrayCliente,int limiteCliente,char * nombre,
 	{
 		printf("Error - No quedan lugares libres");
 	}
+	return retorno;
+}
+
+
+int cliente_imprimirClientePorID (Cliente * pArrayCliente , int limitCliente, int id,char*mensaje)
+{
+	int retorno =-1;
+		if(pArrayCliente!= NULL && limitCliente > 0 && pArrayCliente != NULL && limitCliente>0)
+		{
+			for(int i = 0; i<limitCliente; i++)
+			{
+				if (pArrayCliente[i].idCliente == id)
+				{
+					retorno = 0;
+					printf("\n %s %s - %s -Cuit: %s -ID:%d ",mensaje,pArrayCliente[i].nombre,pArrayCliente[i].apellido, pArrayCliente[i].cuit,pArrayCliente[i].idCliente);
+				}
+			}
+		}
+
 	return retorno;
 }
