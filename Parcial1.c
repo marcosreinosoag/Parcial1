@@ -27,7 +27,8 @@ int main(void) {
 	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Marcos","Reinoso","20-40304546-3");
 	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Analia","Perez","20-20515954-2");
 	cliente_altaForzada(arrayCliente,QTY_CLIENTES,"Juana","Perez","20-26304546-6");
-
+	aviso_altaForzada(arrayAviso,QTY_AVISOS,1,33,1,"asdasdasdasdsa");
+	aviso_altaForzada(arrayAviso,QTY_AVISOS,2,390,1,"asasdasdq344sdasdasdsa");
 
 	do
 	{

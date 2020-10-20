@@ -451,12 +451,28 @@ static int aviso_generarNuevoId (void)
 	return id;
 }
 
-int aviso_altaForzada(Aviso *pArrayAviso,int limiteAviso)
+int aviso_altaForzada(Aviso *pArrayAviso,int limiteAviso, int idCliente,int numeroRubro,int estadoPublicacion,char *textoAviso)
+
 {
-	int retorno=-1;
 
-
-
+	int retorno = -1;
+		int indice;
+		if (aviso_buscarLibreRef(pArrayAviso, limiteAviso, &indice)== 0)
+		{
+			pArrayAviso[indice].idcliente=idCliente;
+			pArrayAviso[indice].estadoPublicacion=estadoPublicacion;
+			pArrayAviso[indice].numeroRubro=numeroRubro;
+			strncpy(pArrayAviso[indice].textoAviso,textoAviso,CARACTERES_AVISO);
+			pArrayAviso[indice].idAviso = aviso_generarNuevoId();
+			pArrayAviso[indice].isEmpty = FALSE;
+			retorno = 0;
+		}
+		else
+		{
+			printf("Error - No quedan lugares libres");
+		}
 	return retorno;
 }
+
+
 

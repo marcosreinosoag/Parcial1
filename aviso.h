@@ -42,5 +42,6 @@ int aviso_buscarIndicePorIdRef(Aviso * pArrays, int limite,int idBuscar, int * p
 int cliente_contadorAvisos(Aviso *arrayAviso,int limit,int idCliente,int *avisosdelcliente);
 int aviso_alta(Aviso *arrayAviso,int limite, Cliente *pArrayClientes,int limit);
 int aviso_buscarLibreRef(Aviso pArrayCliente[],int limit, int *pindex);
+int aviso_altaForzada(Aviso *pArrayAviso,int limiteAviso, int idCliente,int numeroRubro,int estadoPublicacion,char *textoAviso);
 
 #endif /* AVISO_H_ */

@@ -353,13 +353,13 @@ return retorno;
 int avisos_imprimirAvisoPorCuit(Aviso *pArrayAviso,int limiteAviso,Cliente *pArrayCliente,int limiteCliente)
 {
 	int retorno=-1;
-	char cuitAbuscar [14];
+	char cuitAbuscar [15];
 	int idCliente;
 	int contadorAviso;
 	if (pArrayAviso !=NULL && limiteAviso>0 && pArrayCliente != NULL && limiteCliente>0)
 	{
 		cliente_imprimir(pArrayCliente, limiteCliente);
-		if(utn_getNombre("\nINGRESE EL CUIT : ", "\nERROR!!!!! ID NO ENCONTRADO",cuitAbuscar, 3, 14)==0)
+		if(utn_getCuit("\nINGRESE EL CUIT : ", "\nERROR!!!!! ID NO ENCONTRADO",cuitAbuscar, 3, 15)==0)
 		{
 			if(cliente_buscarIdPorCuitRef(pArrayCliente, limiteCliente,cuitAbuscar,&idCliente)==0 &&
 			informes_contadorAvisoPorCuit(pArrayAviso,limiteAviso,idCliente,&contadorAviso)==0)
