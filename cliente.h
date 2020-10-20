@@ -29,5 +29,5 @@ int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limite,int idBuscar,int
 int cliente_buscarLibreRef(Cliente pArrayCliente[],int limit, int *pindex);
 int cliente_altaForzada(Cliente * pArrayCliente,int limiteCliente,char * nombre,char * apellido,char * cuit);
 int cliente_imprimirClientePorID (Cliente * pArrayCliente , int limitCliente, int id,char*mensaje);
-
+int cliente_buscarIdPorCuitRef (Cliente * pArrays, int limiteCliente,char *cuitABuscar, int * pIdCliente);
 #endif /* CLIENTE_H_ */

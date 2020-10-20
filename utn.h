@@ -19,7 +19,7 @@ int esUnCuitValido(char* cadena,int limite);
 int utn_getCuit(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
 int validarConfirmacion(char* cadena,int limite);
 int utn_getConfirmacion(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite);
-
+int utn_getChar(char *mensaje, char * mensajeError,char *pResultado,int reintentos);
 
 
 #endif /* UTN_H_ */

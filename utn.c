@@ -183,7 +183,34 @@ char bufferString[LIMITE_BUFFER_STRING];
 	return retorno;
 }
 
+int utn_getChar(char *mensaje, char * mensajeError,char *pResultado,int reintentos)
+{
+	int retorno=-1;
+	char resultado;
+	if(mensaje != NULL && mensajeError != NULL && pResultado != NULL && reintentos >= 0)
+	{
+		do
+		{
+			printf("%s",mensaje);
+			fflush(stdin);
+			scanf("%c" ,&resultado);
+			if(resultado=='a' || resultado=='b' || resultado=='c' || resultado=='d' || resultado=='e' || resultado=='f'
+					|| resultado=='g' || resultado=='h' || resultado=='i' || resultado=='j' || resultado=='k')
+			{
+				retorno = 0;
+				*pResultado = resultado;
+				break;
+			}
+			else
+			{
+				printf("%s",mensajeError);
+				reintentos--;
+			}
+		}while(reintentos >= 0);
 
+	}
+	return retorno;
+}
 
 
 

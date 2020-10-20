@@ -44,7 +44,7 @@ int cliente_baja (Cliente * pArraysCliente, int limiteCliente,Aviso *arrayAviso,
 	int indiceABorrarCliente;
 	int confirmacion;
 
-	if (pArraysCliente != NULL && limiteCliente>0)
+	if (pArraysCliente != NULL && limiteCliente>0 && arrayAviso !=NULL && limitAviso>0)
 	{
 		cliente_imprimir(pArraysCliente, limiteCliente);
 		if(utn_getEntero("\nINGRESE EL ID QUE DESEA BORRAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idABorrar,3,9999,0)==0)
@@ -451,5 +451,12 @@ static int aviso_generarNuevoId (void)
 	return id;
 }
 
+int aviso_altaForzada(Aviso *pArrayAviso,int limiteAviso)
+{
+	int retorno=-1;
 
+
+
+	return retorno;
+}
 

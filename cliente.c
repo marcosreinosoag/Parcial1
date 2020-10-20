@@ -174,7 +174,29 @@ int cliente_buscarIndicePorIdRef (Cliente * pArrays, int limiteCliente,int idBus
 	return retorno;
 }
 
-
+int cliente_buscarIdPorCuitRef (Cliente * pArrays, int limiteCliente,char *cuitABuscar, int * pIdCliente)
+{
+	int retorno = -1;
+	int i ;
+	if (pArrays != NULL && limiteCliente >0 && cuitABuscar >= 0)
+	{
+			for ( i = 0; i<limiteCliente; i++)
+			{
+				if(pArrays[i].isEmpty == FALSE &&
+				   strcmp(pArrays[i].cuit,cuitABuscar)==0)
+				{
+					*pIdCliente= pArrays[i].idCliente;
+					retorno = 0;
+					break;
+				}
+			}
+	}
+	else
+	{
+		printf("errrror!!!!!!!!!!!!");
+	}
+	return retorno;
+}
 
 /** \brief Busca el indice por el id y devuelve por retorno el indice
  *
